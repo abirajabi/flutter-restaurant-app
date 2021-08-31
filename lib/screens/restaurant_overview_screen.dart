@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_app/models/restaurant.dart';
+import 'package:restaurant_app/screens/restaurant_detail_screen.dart';
 
 class RestaurantOverviewScreen extends StatelessWidget {
   static const routeName = '/restaurants';
@@ -23,19 +24,65 @@ class RestaurantOverviewScreen extends StatelessWidget {
   }
 
   Widget _buildRestoItem(BuildContext context, Restaurant resto) {
-    return ListTile(
-      leading: ClipRRect(
-        borderRadius: BorderRadius.circular(10.0),
-        child: Image.network(
-          resto.pictureId,
-          width: 70,
-          fit: BoxFit.cover,
+    return InkWell(
+      onTap: () {
+        Navigator.pushNamed(
+          context,
+          RestaurantDetailScreen.routeName,
+          arguments: resto,
+        );
+      },
+      child: Padding(
+        padding: EdgeInsets.all(10.0),
+        child: Row(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(5),
+              child: Image.network(
+                resto.pictureId,
+                width: 100,
+                fit: BoxFit.cover,
+              ),
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    resto.name,
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    height: 4.0,
+                  ),
+                  Text(resto.city),
+                  SizedBox(
+                    height: 4.0,
+                  ),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
+                      SizedBox(
+                        width: 8.0,
+                      ),
+                      Text(
+                        resto.rating.toString(),
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ],
         ),
-      ),
-      title: Text(resto.name),
-      subtitle: Text(
-        resto.description,
-        overflow: TextOverflow.ellipsis,
       ),
     );
   }
@@ -43,7 +90,73 @@ class RestaurantOverviewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _buildList(context),
+      body: NestedScrollView(
+        headerSliverBuilder: (context, isScrolled) {
+          return [
+            SliverAppBar(
+                expandedHeight: 200,
+                elevation: 0,
+                flexibleSpace: Stack(
+                  children: [
+                    Positioned.fill(
+                      child: Image.asset(
+                        'assets/images/sliver-back.jpg',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    Container(
+                      color: Colors.black54,
+                    ),
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(left: 24.0, bottom: 8.0),
+                            child: Text(
+                              'Restaurants',
+                              style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 24.0),
+                            child: Text(
+                              'Recommended restaurant list just for you!',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                )
+                // FlexibleSpaceBar(
+                //   background: Image.asset(
+                //     'assets/images/sliver-back.jpg',
+                //     fit: BoxFit.cover,
+                //   ),
+                //   title: Text(
+                //     'Restaurants',
+                //     style: TextStyle(
+                //       fontSize: 20,
+                //       fontWeight: FontWeight.bold,
+                //     ),
+                //   ),
+                //   titlePadding: EdgeInsets.only(left: 24.0, bottom: 24.0),
+                // ),
+                ),
+          ];
+        },
+        body: _buildList(context),
+      ),
     );
   }
 }

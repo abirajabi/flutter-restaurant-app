@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_app/screens/restaurant_detail_screen.dart';
 import 'package:restaurant_app/screens/restaurant_overview_screen.dart';
 
 void main() {
@@ -18,6 +19,8 @@ class MyApp extends StatelessWidget {
         routes: {
           RestaurantOverviewScreen.routeName: (context) =>
               RestaurantOverviewScreen(),
+          RestaurantDetailScreen.routeName: (context) =>
+              RestaurantDetailScreen(),
         });
   }
 }
