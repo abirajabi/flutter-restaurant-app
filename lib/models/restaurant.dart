@@ -28,7 +28,7 @@ class Restaurant {
       description: json['description'],
       pictureId: json['pictureId'],
       city: json['city'],
-      rating: json['rating'],
+      rating: double.parse(json['rating'].toString()),
       menus: Menus.fromJson(json['menus']),
     );
   }
@@ -37,7 +37,9 @@ class Restaurant {
 List<Restaurant> parseRestaurant(String? json) {
   if (json == null) return [];
 
-  final List parsed = jsonDecode(json);
-  // List<Restaurannt> parsedList = map["restaurants"];
-  return parsed.map((json) => Restaurant.fromJson(json)).toList();
+  final Map<String, dynamic> parsedMap = jsonDecode(json);
+  List<dynamic> parsedList = parsedMap["restaurants"];
+  return parsedList.map((json) {
+    return Restaurant.fromJson(json);
+  }).toList();
 }

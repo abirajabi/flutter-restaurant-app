@@ -8,7 +8,13 @@ class Menus {
   Menus(this.foods, this.drinks);
 
   Menus.fromJson(Map<String, dynamic> json) {
-    foods = Foods.fromJson(json["foods"]) as List<Foods>;
-    drinks = Foods.fromJson(json["drinks"]) as List<Drinks>;
+    var fList = json["foods"] as List;
+    var dList = json["drinks"] as List;
+
+    List<Foods> foodList = fList.map((i) => Foods.fromJson(i)).toList();
+    List<Drinks> drinkList = dList.map((i) => Drinks.fromJson(i)).toList();
+
+    foods = foodList;
+    drinks = drinkList;
   }
 }

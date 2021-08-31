@@ -9,12 +9,16 @@ class RestaurantOverviewScreen extends StatelessWidget {
       future: DefaultAssetBundle.of(context)
           .loadString('assets/local_restaurant.json'),
       builder: (context, snapshot) {
-        final List<Restaurant> restos = parseRestaurant(snapshot.data);
-        return ListView.builder(
-          itemCount: restos.length,
-          itemBuilder: (context, index) {
-            return _buildRestoItem(context, restos[index]);
-          },
+        final List<Restaurant> restos =
+            parseRestaurant(snapshot.hasData ? snapshot.data : "");
+        return Container(
+          height: 100,
+          child: ListView.builder(
+            itemCount: restos.length,
+            itemBuilder: (context, index) {
+              return _buildRestoItem(context, restos[index]);
+            },
+          ),
         );
       },
     );
