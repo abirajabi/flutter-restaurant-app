@@ -38,10 +38,13 @@ class RestaurantOverviewScreen extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(5),
-              child: Image.network(
-                resto.pictureId,
-                width: 100,
-                fit: BoxFit.cover,
+              child: Hero(
+                tag: resto.pictureId,
+                child: Image.network(
+                  resto.pictureId,
+                  width: 100,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             SizedBox(
@@ -57,17 +60,28 @@ class RestaurantOverviewScreen extends StatelessWidget {
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
-                    height: 4.0,
+                    height: 8.0,
                   ),
-                  Text(resto.city),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.location_pin,
+                        color: Colors.redAccent,
+                        size: 16.0,
+                      ),
+                      SizedBox(width: 8.0),
+                      Text(resto.city),
+                    ],
+                  ),
                   SizedBox(
-                    height: 4.0,
+                    height: 8.0,
                   ),
                   Row(
                     children: [
                       Icon(
                         Icons.star,
                         color: Colors.amber,
+                        size: 16.0,
                       ),
                       SizedBox(
                         width: 8.0,
@@ -94,65 +108,49 @@ class RestaurantOverviewScreen extends StatelessWidget {
         headerSliverBuilder: (context, isScrolled) {
           return [
             SliverAppBar(
-                expandedHeight: 200,
-                elevation: 0,
-                flexibleSpace: Stack(
-                  children: [
-                    Positioned.fill(
-                      child: Image.asset(
-                        'assets/images/sliver-back.jpg',
-                        fit: BoxFit.cover,
-                      ),
+              expandedHeight: 200,
+              elevation: 0,
+              flexibleSpace: Stack(
+                children: [
+                  Positioned.fill(
+                    child: Image.asset(
+                      'assets/images/sliver-back.jpg',
+                      fit: BoxFit.cover,
                     ),
-                    Container(
-                      color: Colors.black54,
-                    ),
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(left: 24.0, bottom: 8.0),
-                            child: Text(
-                              'Restaurants',
-                              style: TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            ),
+                  ),
+                  Container(
+                    color: Colors.black54,
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(left: 24.0, bottom: 8.0),
+                        child: Text(
+                          'Restaurants',
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 24.0),
-                            child: Text(
-                              'Recommended restaurant list just for you!',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
-                    )
-                  ],
-                )
-                // FlexibleSpaceBar(
-                //   background: Image.asset(
-                //     'assets/images/sliver-back.jpg',
-                //     fit: BoxFit.cover,
-                //   ),
-                //   title: Text(
-                //     'Restaurants',
-                //     style: TextStyle(
-                //       fontSize: 20,
-                //       fontWeight: FontWeight.bold,
-                //     ),
-                //   ),
-                //   titlePadding: EdgeInsets.only(left: 24.0, bottom: 24.0),
-                // ),
-                ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 24.0),
+                        child: Text(
+                          'Recommended restaurant list just for you!',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
           ];
         },
         body: _buildList(context),
