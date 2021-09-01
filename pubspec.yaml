@@ -35,14 +35,15 @@ dev_dependencies:
   flutter_native_splash: ^1.2.1
 
 flutter_native_splash:
-  color: "#046582"
+  color: "#3F51B5"
   android: true
   ios: true
   image: assets/images/logo512.png
   android_gravity: center
   ios_content_mode: center
 
-  color_dark: "#11324D"
+
+  color_dark: "#3F51B5"
 
 
 # For information on the generic Dart part of this file, see the

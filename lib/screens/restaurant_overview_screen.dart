@@ -66,7 +66,7 @@ class RestaurantOverviewScreen extends StatelessWidget {
                     children: [
                       Icon(
                         Icons.location_pin,
-                        color: Colors.redAccent,
+                        color: Colors.grey,
                         size: 16.0,
                       ),
                       SizedBox(width: 8.0),
@@ -91,7 +91,7 @@ class RestaurantOverviewScreen extends StatelessWidget {
                         style: TextStyle(color: Colors.grey),
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
             ),
